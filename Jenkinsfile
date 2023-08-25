@@ -52,8 +52,8 @@ def manageReportChangelog() {
       .each { changeLogSet ->
           def browser = changeLogSet.browser
           println("changeLogSet ${changeLogSet}")
-          println("browser.getChangeSetLink(changeLogSet) ${browser.getChangeSetLink(changeLogSet)}")
-
+/*           println("browser.getChangeSetLink(changeLogSet) ${browser.getChangeSetLink(changeLogSet)}")
+ */
           changeLogSet.items.each { changeSet ->
               def commmitDate = new Date().format("EEE MMM dd yy HH:mm:ss", TimeZone.getTimeZone('GMT+2:00'))
               println("changeSet ${changeSet}")
