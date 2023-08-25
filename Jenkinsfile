@@ -34,7 +34,7 @@ def manageChangelog() {
           println(changeLogSet)
           changeLogSet.items.each { changeSet ->
               def commmitDate = new Date().format("EEE MMM dd yy HH:mm:ss", TimeZone.getTimeZone('GMT+5:30'))
-              changeLogToReturn += "<${changeLogSet.redoUrl}\n/commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
+              changeLogToReturn += "<${changeLogSet.repoUrl}\n/commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
               changeSet.affectedFiles.each { file ->
                   changeLogToReturn += "\t\t${file.editType.name.capitalize()} - ${file.path}\n"
               }
@@ -52,7 +52,7 @@ def manageReportChangelog() {
       .each { changeLogSet ->
           def browser = changeLogSet.browser
           println("changeLogSet ${changeLogSet}")
-          def repoUrlNormalized=browser.redoUrl
+          def repoUrlNormalized=browser.repoUrl
           def commonRepoUrl =  repoUrlNormalized.substring(0,repoUrlNormalized.length()-1) + ".git"
           println("common REPO URL ->  ${commonRepoUrl}")
           changeLogSet.items.each { changeSet ->
