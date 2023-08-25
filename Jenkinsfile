@@ -44,7 +44,7 @@ def manageChangelog() {
       .each { changeLogSet ->
           changeLogSet.items.each { changeSet ->
               def commmitDate = new Date().format("EEE MMM dd yy HH:mm:ss", TimeZone.getTimeZone('GMT+5:30'))
-              changeLogToReturn += "<commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
+              changeLogToReturn += "<${changeLogSet.browser.repoUrl}commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
               changeSet.affectedFiles.each { file ->
                   changeLogToReturn += "    ${file.editType.name.capitalize()} - ${file.path}\n"
               }
