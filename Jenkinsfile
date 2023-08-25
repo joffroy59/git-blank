@@ -29,14 +29,26 @@ def manageChangelog() {
     def entries = changeLogSets[i].items
     for (int j = 0; j < entries.length; j++) {
       def entry = entries[j]
-      // echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
       println("${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}")
       def files = new ArrayList(entry.affectedFiles)
       for (int k = 0; k < files.size(); k++) {
         def file = files[k]
-        // echo "  ${file.editType.name} ${file.path}"
         println("  ${file.editType.name} ${file.path}")
       }
     }
   }
+
+  def changeLogSetsNew = currentBuild.changeSets
+  def changeLogToReturn=""
+  changeLogSetsNew
+      .each { changeLogSet ->
+          changeLogSet.items.each { changeSet ->
+              def commmitDate = new Date().format("EEE MMM dd yy HH:mm:ss", TimeZone.getTimeZone('GMT+5:30'))
+              changeLogToReturn += "<${changeLogSet.browser.repoUrl}commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
+              changeSet.affectedFiles.each { file ->
+                  changeLogToReturn += "    ${file.editType.name.capitalize()} - ${file.path}\n"
+              }
+          }
+      }
+  println(changeLogToReturn)
 }
