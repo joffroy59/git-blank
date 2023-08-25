@@ -27,6 +27,7 @@ def manageChangelog() {
   def changeLogSetsNew = currentBuild.changeSets
   def changeLogToReturn=""
   println(changeLogSetsNew)
+  println("changelog size:" + changeLogSetsNew.size())
   changeLogSetsNew
       .each { changeLogSet ->
           println(changeLogSet)
