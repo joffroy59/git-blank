@@ -52,7 +52,7 @@ def manageReportChangelog() {
       .each { changeLogSet ->
           def browser = changeLogSet.browser
           println("changeLogSet ${changeLogSet}")
-          dedf repoUrlNormalized=browser.redoUrl
+          def repoUrlNormalized=browser.redoUrl
           def commonRepoUrl =  repoUrlNormalized.substring(0,repoUrlNormalized.length()-1) + ".git"
           println("common REPO URL ->  ${commonRepoUrl}")
           changeLogSet.items.each { changeSet ->
