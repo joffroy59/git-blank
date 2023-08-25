@@ -24,27 +24,13 @@ node {
 }
 
 def manageChangelog() {
-  def changeLogSets = currentBuild.changeSets
-  for (int i = 0; i < changeLogSets.size(); i++) {
-    def entries = changeLogSets[i].items
-    for (int j = 0; j < entries.length; j++) {
-      def entry = entries[j]
-      println("${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}")
-      def files = new ArrayList(entry.affectedFiles)
-      for (int k = 0; k < files.size(); k++) {
-        def file = files[k]
-        println("  ${file.editType.name} ${file.path}")
-      }
-    }
-  }
-
   def changeLogSetsNew = currentBuild.changeSets
   def changeLogToReturn=""
   changeLogSetsNew
       .each { changeLogSet ->
           changeLogSet.items.each { changeSet ->
               def commmitDate = new Date().format("EEE MMM dd yy HH:mm:ss", TimeZone.getTimeZone('GMT+5:30'))
-              changeLogToReturn += "<${changeLogSet.browser.repoUrl}commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
+              changeLogToReturn += "<${changeLogSet.browser.repoUrl}\ncommit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
               changeSet.affectedFiles.each { file ->
                   changeLogToReturn += "\t\t${file.editType.name.capitalize()} - ${file.path}\n"
               }
