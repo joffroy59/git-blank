@@ -67,10 +67,7 @@ def manageReportChangelog() {
               // println("repoUrlNormalized ${repoUrlNormalized}")
               def repoUrl = repoUrlNormalized.substring(0,repoUrlNormalized.length()-1) + ".git"
               // println("repoUrl ${repoUrl}.git")
-              changeLogToReturn += "<${changeLogSet.browser.repoUrl}\n/commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
-              changeSet.affectedFiles.each { file ->
-                  changeLogToReturn += "\t\t${file.editType.name.capitalize()} - ${file.path}\n"
-              }
+              changeLogToReturn += "- ${changeSet.msg}> "
           }
       }
   println(changeLogToReturn)
