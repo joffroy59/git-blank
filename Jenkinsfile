@@ -68,7 +68,7 @@ def manageReportChangelog() {
               // println("repoUrlNormalized ${repoUrlNormalized}")
               def repoUrl = repoUrlNormalized.substring(0,repoUrlNormalized.length()-1) + ".git"
               // println("repoUrl ${repoUrl}.git")
-              changeLogToReturn += "  - ${changeSet.msg}"
+              changeLogToReturn += "  - ${changeSet.msg}\n"
           }
           changeLogToReturn += "-----------\n"
       }
