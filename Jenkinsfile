@@ -61,7 +61,7 @@ def manageReportChangelog() {
               println("changeSet ${changeSet}")
               println("browser.getChangeSetLink(changeSet) ${browser.getChangeSetLink(changeSet)}")
               println("browser.repoUrl ${browser.repoUrl}")
-              def repoUrl = browser.repoUrl.substring(0,repoUrl.length()-1) + ".git"
+              def repoUrl = browser.repoUrl.substring(0,browser.repoUrl.length()-1) + ".git"
               println("repoUrl ${repoUrl}.git")
               changeLogToReturn += "<${changeLogSet.browser.repoUrl}\n/commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
               changeSet.affectedFiles.each { file ->
