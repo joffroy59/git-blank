@@ -17,6 +17,7 @@ node {
     }
     stage('Manage changelog') {
       manageChangelog()
+      manageReportChangelog()
     }
     stage('Results') {
         echo 'TODO'
@@ -33,6 +34,25 @@ def manageChangelog() {
           println(changeLogSet)
           changeLogSet.items.each { changeSet ->
               def commmitDate = new Date().format("EEE MMM dd yy HH:mm:ss", TimeZone.getTimeZone('GMT+5:30'))
+              changeLogToReturn += "<${changeLogSet.browser.repoUrl}\n/commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
+              changeSet.affectedFiles.each { file ->
+                  changeLogToReturn += "\t\t${file.editType.name.capitalize()} - ${file.path}\n"
+              }
+          }
+      }
+  println(changeLogToReturn)
+}
+
+def manageReportChangelog() {
+  def changeLogSetsNew = currentBuild.changeSets
+  def changeLogToReturn=""
+  println(changeLogSetsNew)
+  println("changelog size:" + changeLogSetsNew.size())
+  changeLogSetsNew
+      .each { changeLogSet ->
+          println(changeLogSet)
+          changeLogSet.items.each { changeSet ->
+              def commmitDate = new Date().format("EEE MMM dd yy HH:mm:ss", TimeZone.getTimeZone('GMT+2:00'))
               changeLogToReturn += "<${changeLogSet.browser.repoUrl}\n/commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
               changeSet.affectedFiles.each { file ->
                   changeLogToReturn += "\t\t${file.editType.name.capitalize()} - ${file.path}\n"
