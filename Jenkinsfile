@@ -60,7 +60,7 @@ def manageReportChangelog() {
           println("############################################")
           println("common REPO URL ->  ${commonRepoUrl}")
           println("############################################")
-          changeLogToReturn += "<ul>"
+          changeLogToReturn += "-----------\n"
           changeLogSet.items.each { changeSet ->
               // def commmitDate = new Date().format("EEE MMM dd yy HH:mm:ss", TimeZone.getTimeZone('GMT+2:00'))
               // println("changeSet ${changeSet}")
@@ -68,9 +68,9 @@ def manageReportChangelog() {
               // println("repoUrlNormalized ${repoUrlNormalized}")
               def repoUrl = repoUrlNormalized.substring(0,repoUrlNormalized.length()-1) + ".git"
               // println("repoUrl ${repoUrl}.git")
-              changeLogToReturn += "<li> ${changeSet.msg} </li>"
+              changeLogToReturn += "  - ${changeSet.msg}"
           }
-          changeLogToReturn += "</ul>"
+          changeLogToReturn += "-----------\n"
       }
   println(changeLogToReturn)
 }
