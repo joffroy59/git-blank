@@ -50,9 +50,14 @@ def manageReportChangelog() {
   println("changelog size:" + changeLogSetsNew.size())
   changeLogSetsNew
       .each { changeLogSet ->
-          println(changeLogSet)
+          def browser = changeLogSet.browser
+          println("changeLogSet ${changeLogSet}")
+          println("browser.getChangeSetLink(changeLogSet) ${browser.getChangeSetLink(changeLogSet)}")
+
           changeLogSet.items.each { changeSet ->
               def commmitDate = new Date().format("EEE MMM dd yy HH:mm:ss", TimeZone.getTimeZone('GMT+2:00'))
+              println("changeSet ${changeSet}")
+              println("browser.getChangeSetLink(changeSet) ${browser.getChangeSetLink(changeSet)}")
               changeLogToReturn += "<${changeLogSet.browser.repoUrl}\n/commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
               changeSet.affectedFiles.each { file ->
                   changeLogToReturn += "\t\t${file.editType.name.capitalize()} - ${file.path}\n"
