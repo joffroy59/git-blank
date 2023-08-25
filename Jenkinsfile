@@ -26,11 +26,13 @@ node {
 def manageChangelog() {
   def changeLogSetsNew = currentBuild.changeSets
   def changeLogToReturn=""
+  println(changeLogSetsNew)
   changeLogSetsNew
       .each { changeLogSet ->
+          println(changeLogSet)
           changeLogSet.items.each { changeSet ->
               def commmitDate = new Date().format("EEE MMM dd yy HH:mm:ss", TimeZone.getTimeZone('GMT+5:30'))
-              changeLogToReturn += "<${changeLogSet.browser.repoUrl}\ncommit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
+              changeLogToReturn += "<${changeLogSet.browser.repoUrl}\n/commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
               changeSet.affectedFiles.each { file ->
                   changeLogToReturn += "\t\t${file.editType.name.capitalize()} - ${file.path}\n"
               }
