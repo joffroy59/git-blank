@@ -52,6 +52,8 @@ def manageReportChangelog() {
       .each { changeLogSet ->
           def browser = changeLogSet.browser
           println("changeLogSet ${changeLogSet}")
+          def commonRepoUrl =  browser.repoUrl.substring(0,repoUrl.length()-1) + ".git"
+          println("common REPO URL ->  ${commonRepoUrl}")
 /*           println("browser.getChangeSetLink(changeLogSet) ${browser.getChangeSetLink(changeLogSet)}")
  */
           changeLogSet.items.each { changeSet ->
@@ -59,8 +61,8 @@ def manageReportChangelog() {
               println("changeSet ${changeSet}")
               println("browser.getChangeSetLink(changeSet) ${browser.getChangeSetLink(changeSet)}")
               println("browser.repoUrl ${browser.repoUrl}")
-              def repoUrl = browser.repoUrl
-              println("repoUrl ${repoUrl.substring(0,repoUrl.length()-1)}.git")
+              def repoUrl = browser.repoUrl.substring(0,repoUrl.length()-1) + ".git"
+              println("repoUrl ${repoUrl}.git")
               changeLogToReturn += "<${changeLogSet.browser.repoUrl}\n/commit/${changeSet.commitId}|${changeSet.msg}> by ${changeSet.author} on ${commmitDate}, commit details below\n"
               changeSet.affectedFiles.each { file ->
                   changeLogToReturn += "\t\t${file.editType.name.capitalize()} - ${file.path}\n"
